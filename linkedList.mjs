@@ -62,7 +62,7 @@ export const LinkedList = function() {
     return null;
   }
 
-  return {get tail() { return tail }, get head() { return head }, append, pop, contains, find};
+  return { get tail() { return tail }, get head() { return head }, append, pop, contains, find };
 }
 
 export const Node = function(key = null, value = null, nextNode = null) {

@@ -1,9 +1,9 @@
 import { LinkedList, Node } from './linkedList.mjs';
 
 const HashMap = function() {
-
-  let buckets = new Array(16);
-  let capacity = buckets.length;
+  
+  let size = 16;
+  let buckets = new Array(size);
 
   // hash(key) takes a key and produces a hash code with it
   const hash = (key) => {
@@ -98,12 +98,61 @@ const HashMap = function() {
     return false;
   }
 
-  return { get buckets() { return buckets }, get capacity() { return capacity }, hash, set, get, has, remove };
-}
+  const length = () => {
+    let count = 0;
+    for (let i = 0; i < buckets.length; i++) {
+      if (buckets[i]) {
+        count++;
+      }
+    }
+    return count;
+  }
 
-let map = new HashMap;
-map.set('Carla', 2);
-map.set('Carlass', 4);
-console.log(map.buckets[9].head);
-console.log(map.remove('Carlass'));
-console.log(map.buckets[9].head);
+  const clear = () => {
+    buckets = new Array(size);
+  }
+
+  const keys = () => {
+    let arr = [];
+    for (let i = 0; i < buckets.length; i++) {
+      if (buckets[i]) {
+        let current = buckets[i].head;
+        while (current) {
+          arr.push(current.key);
+          current = current.nextNode;
+        }
+      }
+    }
+    return arr;
+  }
+
+  const values = () => {
+    let arr = [];
+    for (let i = 0; i < buckets.length; i++) {
+      if (buckets[i]) {
+        let current = buckets[i].head;
+        while (current) {
+          arr.push(current.value);
+          current = current.nextNode;
+        }
+      }
+    }
+    return arr;
+  }
+
+  const entries = () => {
+    let arr = [];
+    for (let i = 0; i < buckets.length; i++) {
+      if (buckets[i]) {
+        let current = buckets[i].head;
+        while (current) {
+          arr.push([current.key, current.value]);
+          current = current.nextNode;
+        }
+      }
+    }
+    return arr;
+  }
+
+  return { get buckets() { return buckets }, hash, set, get, has, remove, length, clear, keys, values, entries };
+}
